@@ -8,6 +8,7 @@ async function init() {
     });
 
     const page = await browser.newPage();
+    page.setViewport({ width: 1500, height: 764 });
     await page.goto("https://www.instagram.com/");
 
     await page.waitForFunction(() => document.querySelectorAll("input").length);
