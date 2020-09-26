@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const credentials = require("./credentials");
 
 async function init() {
     const browser = await puppeteer.launch({
@@ -12,11 +13,20 @@ async function init() {
     await page.waitForFunction(() => document.querySelectorAll("input").length);
 
     // Login
-    await page.type("[name=username]", "bilbo4x", { delay: 100 });
-    await page.type("[name=password]", "pass", { delay: 100 });
-    await page.evaluate(() => {
-        document.querySelector(".L3NKy").click();
-    });
+    await page.type("[name=username]", credentials.user, { delay: 100 });
+    await page.type("[name=password]", credentials.pass, { delay: 100 });
+    await Promise.all([
+        page.waitForNavigation({ waitUntil: "networkidle2" }),
+        page.click("button[type='submit']"),
+    ]);
+
+    // Search drezinhozsz
+    await page.type("input[placeholder='Search']", "ezrealblindado");
+    await page.waitForSelector(".drKGC .fuqBx a", { visible: true });
+    await Promise.all([
+        page.waitForNavigation({ waitUntil: "networkidle2" }),
+        page.click(".drKGC .fuqBx a"),
+    ]);
 }
 
 init();
