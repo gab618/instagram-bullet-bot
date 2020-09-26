@@ -22,12 +22,22 @@ async function init() {
     ]);
 
     // Search drezinhozsz
-    await page.type("input[placeholder='Search']", "ezrealblindado");
+    await page.type("input[placeholder='Search']", "drezinhozsz");
     await page.waitForSelector(".drKGC .fuqBx a", { visible: true });
     await Promise.all([
         page.waitForNavigation({ waitUntil: "networkidle2" }),
         page.click(".drKGC .fuqBx a"),
     ]);
+    await page.waitForSelector(".eLAPa", { visible: true });
+    await page.click(".eLAPa");
+
+    while (true) {
+        await page.waitForSelector(".Ypffh", { visible: true });
+        await page.type(".Ypffh", "🔥 BULLET 🔥", { delay: 750 });
+        await page.type(".Ypffh", String.fromCharCode(13), { delay: 3000 });
+        await page.click(".coreSpriteRightPaginationArrow");
+    }
+    //.coreSpriteRightPaginationArrow
 }
 
 init();
